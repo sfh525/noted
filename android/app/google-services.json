@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "745754582464",
+    "project_id": "noted-flutter-proj",
+    "storage_bucket": "noted-flutter-proj.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:745754582464:android:5db9692452e0c47517fc25",
+        "android_client_info": {
+          "package_name": "com.sfhdev.noted"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDDTwxM1uRvH4fyGgKUFwVDU0NmEE3BHA8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
