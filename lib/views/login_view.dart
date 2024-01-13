@@ -32,67 +32,61 @@ class _LoginViewState extends State<LoginView> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Login')
-        ),
-        body: FutureBuilder(
-          future: 
-            Firebase.initializeApp(
-              options: DefaultFirebaseOptions.currentPlatform,
+      ),
+      body: Column(
+        children: [
+          TextField(
+            controller: _email,
+            enableSuggestions: false,
+            autocorrect: false,
+            keyboardType: TextInputType.emailAddress,
+            decoration: const InputDecoration(
+              hintText: 'Enter your email here',
+              ),
+          ),
+          TextField(
+            controller: _password,
+            obscureText: true,
+            enableSuggestions: false,
+            autocorrect: false ,
+            decoration: const InputDecoration(hintText: 'Enter your password here',)
+          ),
+          TextButton(
+            onPressed: () async{
+              final email = _email.text;
+              final password = _password.text;
+              try{
+                final userCredential = await FirebaseAuth.instance
+                  .signInWithEmailAndPassword(
+                email: email, 
+                password: password
+              );
+                print(userCredential);
+              }
+      
+              on FirebaseAuthException catch (e){
+                if(e.code == 'invalid-credential'){
+                  print('Invalid Credential. Check if your password is correct or if your account is registered.');
+                }
+                else {
+                  print('something else happened');
+                  print(e.code);
+                }
+              }
+            },
+            child: const Text('Login'),
             ),
-          builder: (context, snapshot) {
-            switch(snapshot.connectionState){
-              case ConnectionState.done:
-                return Column(
-            children: [
-              TextField(
-                controller: _email,
-                enableSuggestions: false,
-                autocorrect: false,
-                keyboardType: TextInputType.emailAddress,
-                decoration: const InputDecoration(
-                  hintText: 'Enter your email here',
-                  ),
-              ),
-              TextField(
-                controller: _password,
-                obscureText: true,
-                enableSuggestions: false,
-                autocorrect: false ,
-                decoration: const InputDecoration(hintText: 'Enter your password here',)
-              ),
-              TextButton(
-                onPressed: () async{
-                  final email = _email.text;
-                  final password = _password.text;
-                  try{
-                    final userCredential = await FirebaseAuth.instance
-                      .signInWithEmailAndPassword(
-                    email: email, 
-                    password: password
-                  );
-                    print(userCredential);
-                  }
-
-                  on FirebaseAuthException catch (e){
-                    if(e.code == 'invalid-credential'){
-                      print('Invalid Credential. Check if your password is correct or if your account is registered.');
-                    }
-                    else {
-                      print('something else happened');
-                      print(e.code);
-                    }
-                  }
-                },
-                child: const Text('Login'),
-                ),
-            ],
-          );
-
-          default: 
-            return const Text('Loading...');
-          }  
-          },
-        ),
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pushNamedAndRemoveUntil(
+                '/register/', 
+                (route) => false
+              );
+            },
+            child : const Text('Not registered yet? Register here!'),
+          )
+        ],
+      ),
     );
-  }
-  
+  } 
 }
