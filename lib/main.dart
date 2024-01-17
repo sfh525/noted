@@ -20,7 +20,8 @@ void main() {
       routes: {
         loginRoute: (context) => const LoginView(),
         registerRoute: (context) => const RegisterView(),
-        notesRoute: (context) => const NotesView()
+        notesRoute: (context) => const NotesView(),
+        verifyEmailRoute: (context) => const VerifyEmailView(),
       } //13:45:31
     ),
   );
@@ -41,7 +42,7 @@ class HomePage extends StatelessWidget {
                 final user = FirebaseAuth.instance.currentUser;
                 if (user != null){
                   if(user.emailVerified){
-                    devtools.log('Email is verified.');
+                    return const NotesView();
                   }
                   else{
                     return const VerifyEmailView();
@@ -50,7 +51,6 @@ class HomePage extends StatelessWidget {
                 else{
                   return const LoginView();
                 }
-                return const NotesView();
           default: 
             return const CircularProgressIndicator();
           }  
