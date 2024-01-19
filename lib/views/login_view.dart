@@ -56,22 +56,40 @@ class _LoginViewState extends State<LoginView> {
               final email = _email.text;
               final password = _password.text;
               try{
-                await FirebaseAuth.instance
-                  .signInWithEmailAndPassword(
+                await FirebaseAuth.instance.signInWithEmailAndPassword(
                 email: email, 
                 password: password
               );
+                final user = FirebaseAuth.instance.currentUser;
+                if (user?.emailVerified ?? false){
                 Navigator.of(context).pushNamedAndRemoveUntil(
                   notesRoute, 
                   (route) => false
+                );}
+                else{
+                  Navigator.of(context).pushNamedAndRemoveUntil(
+                  verifyEmailRoute, 
+                  (route) => false
                 );
+                }
               }
-      
               on FirebaseAuthException catch (e){
-                if(e.code == 'invalid-credential') {
-                  await showErrorDialog(
+                if(e.code == 'invalid-credential'){
+                   await showErrorDialog(
                     context, 
                     'User not found. Check if you have registered your email or if wrong password was entered.',
+                    );
+                }
+                else if(e.code == 'user-not-found') {
+                  await showErrorDialog(
+                    context, 
+                    'User not found.',
+                    );
+                }
+                else if(e.code == 'wrong-password'){
+                  await showErrorDialog(
+                    context, 
+                    'Wrong password.',
                     );
                 }
                 else {
