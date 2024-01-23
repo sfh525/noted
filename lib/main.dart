@@ -5,7 +5,7 @@ import 'package:noted/views/login_view.dart';
 import 'package:noted/views/notes_view.dart';
 import 'package:noted/views/register_view.dart';
 import 'package:noted/views/verify_email_view.dart';
-
+//17:37:23
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(MaterialApp(
