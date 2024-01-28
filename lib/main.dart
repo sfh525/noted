@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:noted/constants/routes.dart';
 import 'package:noted/services/auth/auth_service.dart';
 import 'package:noted/views/login_view.dart';
-import 'package:noted/views/notes_view.dart';
+import 'package:noted/views/notes/new_note_view.dart';
+import 'package:noted/views/notes/notes_view.dart';
 import 'package:noted/views/register_view.dart';
 import 'package:noted/views/verify_email_view.dart';
-//17:43:42
+
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(MaterialApp(
@@ -20,7 +21,8 @@ void main() {
         registerRoute: (context) => const RegisterView(),
         notesRoute: (context) => const NotesView(),
         verifyEmailRoute: (context) => const VerifyEmailView(),
-      } //13:45:31
+        newNoteRoute:(context) => const NewNoteView(),
+      }, 
     ),
   );
 }
