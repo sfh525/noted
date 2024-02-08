@@ -41,7 +41,8 @@ class NotesService{
   }
 
   Future<DatabaseNote> updateNote({
-    required DatabaseNote note, required String text
+    required DatabaseNote note, 
+    required String text
     }) async{
       await _ensureDbIsOpen();
       final db = _getDatabaseOrThrow();
