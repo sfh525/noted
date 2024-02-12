@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:noted/services/auth/auth_service.dart';
 import 'package:noted/services/crud/notes_service.dart';
-import 'package:path/path.dart';
 //21:27:10
 class NewNoteView extends StatefulWidget {
   const NewNoteView({super.key});
@@ -87,7 +85,6 @@ class _NewNoteViewState extends State<NewNoteView> {
         future: createNewNote(), 
         builder: (context, snapshot) {
           switch(snapshot.connectionState){
-            
             case ConnectionState.done:
               _note = snapshot.data as DatabaseNote?;
               _setupTextControllerListener();

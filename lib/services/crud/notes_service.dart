@@ -4,19 +4,23 @@ import 'package:noted/services/crud/crud_exceptions.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart' show join;
-//19:03:09
 
 class NotesService{
   Database? _db;
 
   List<DatabaseNote> _notes = [];
 
-  NotesService._sharedInstance();
   static final NotesService _shared = NotesService._sharedInstance(); 
+  NotesService._sharedInstance() {
+    _notesStreamController = StreamController<List<DatabaseNote>>.broadcast(
+      onListen: (){
+        _notesStreamController.sink.add(_notes);
+      },
+    );
+  }
   factory NotesService() => _shared;
 
-  final _notesStreamController = 
-    StreamController<List<DatabaseNote>>.broadcast();
+  late final  StreamController<List<DatabaseNote>> _notesStreamController;
   
   Stream<List<DatabaseNote>> get allNotes => _notesStreamController.stream;
 
